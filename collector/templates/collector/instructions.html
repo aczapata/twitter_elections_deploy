@@ -1,0 +1,63 @@
+{% extends "collector/base.html" %}
+{% block title %}Twitter Elections{% endblock %}
+{% block content %}
+{% load staticfiles %}
+
+	<div class="container">
+
+		<h2 class="text center blue-text">Instructions:</h2>
+		<p class="text center">You will see a Tweet an four possible options to classify the sentiment in the content.</p>
+		<div class="row">
+			<div class="col s12">
+			    <div class="card ">
+			    	<div class="card-content">
+			        	<span class="card-title blue-text">Tweet:</span>
+			         	<p>This is a sample tweet.</p>
+			       	</div>
+			    </div>
+		    </div>
+		    <div class="col s12 m6 l3 ">
+				<a class="btn waves-effect waves-light green"><i class="material-icons left">sentiment_satisfied</i>Positive</a>
+			</div>
+			<div class="col s12 m6 l3 ">
+				<a class="btn waves-effect waves-light red"><i class="material-icons left">sentiment_dissatisfied</i>Negative</a>
+			</div>
+			<div class="col s12 m6 l3 ">
+				<a class="btn waves-effect waves-light grey"><i class="material-icons left">sentiment_neutral</i>Neutral</a>
+			</div>
+			<div class="col s12 m6 l3 ">
+				<a class="btn waves-effect waves-light"><i class="material-icons left">sentiment_very_dissatisfied</i>Irrelevant</a>
+			</div>
+			<div class="col s12">
+				<p>You need to select the corresponding sentiment to the tweet, click each box to know what each sentiment represents .</p>
+			</div>
+			<div class="col s12">
+			<ul class="collapsible" data-collapsible="accordion">
+			  	<li>
+			  		<div class="collapsible-header"><i class="material-icons">sentiment_satisfied</i>Positive</div>
+			    	<div class="collapsible-body "><p>A tweet that indicates happiness, enthusiasm, kindness, agreement, etc is classified as a positive sentiment. <strong class="blue-text">Example:</strong> RT @Politcswatch: @newtgingrich is <strong class="green-text">right</strong> about that. Trump seems to be <strong class="green-text">right</strong> about a lot of things, including the #BrusselsAttacks. #TheFive</p></div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">sentiment_dissatisfied</i>Negative</div>
+				    <div class="collapsible-body"><p>A tweet that indicates sadness, hate, violence, discrimination, disagreement, etc is classified as a negative sentiment. <strong class="blue-text">Example:</strong> RT @VanityFair: Ted Cruz <strong class="red-text">slams</strong> Trump for <strong class="red-text">attacks</strong> on his wife: “Leave Heidi the <strong class="red-text">hell</strong> alone” https://t.co/oxRolfb0x1 https://t.co/PV4EL0aRRc</p></div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">sentiment_neutral</i>Neutral</div>
+					<div class="collapsible-body"><p>A tweet that contains an opinion but is not clear if it is either positive or negative.</p></div>
+				</li>
+				<li>
+					<div class="collapsible-header "><i class="material-icons">sentiment_very_dissatisfied</i>Irrelevant</div>
+					<div class="collapsible-body"><p>A tweet that doesn't contain an opinion or is not related with the USA 2016 elections. <strong class="blue-text">Example:</strong> Mac Miller - Donald Trump https://t.co/g5t8Lb7u0M</p></div>
+				</li>
+			</ul>
+			</div>
+			<div class="col s12">
+				<p>Press the button related to the sentiment detected and compare your results with the opinion from different users and the sentiment detected by the machine. {image from the results} </p>
+				<p>If you have understood the process, click continue to start rating tweets.</p>
+			</div>
+			<div class="col s12 center">
+				<a class="btn btn-lg center light-blue" href="{% url 'collector:tweet_vote' %}">Continue</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

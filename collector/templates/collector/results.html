@@ -1,0 +1,42 @@
+{% extends "collector/base.html" %}
+{% block title %}Twitter Elections{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+	         <div class="card">
+		           <div class="card-content">
+		             <span class="card-title blue-text">Tweet:</span>
+		             <p>{{ tweet.content }}</p>
+		           </div>
+	         </div>
+		</div>
+		<div class="col s12 m6">
+			<div class="card">
+			    <div class="card-image waves-effect waves-block waves-light">
+			      {{graph_votes |safe}}
+			    </div>
+			    <div class="card-content light-blue">
+			      <span class="card-title  white-text">Users Votes: {{total_votes}}</span>
+			    </div>
+			</div>
+		</div>
+		<div class="col s12 m6">
+			<div class="card">
+           		<div class="card-content">
+             			<span class="card-title blue-text">Machine Decisions</span>
+             			<p>First Sentiment: {{tweet.sentiment1 |capfirst}}</p>
+             			<p>Second Sentiment: {{tweet.sentiment2 |capfirst}}</p>
+             			<p>Machine Learning: {{tweet.sentiment3 |capfirst}}</p>
+             			<p>Final Decision: {{tweet.tweet_sentiment|capfirst}}</p>
+           		</div>
+
+         		</div>
+		</div>
+		<div class="col s12">
+			<a class="btn btn-lg light-blue" href="{% url 'collector:tweet_vote'%}">Continue</a>
+			<a class="btn btn-lg grey" href="{% url 'collector:index'%}">Exit</a>
+		</div>
+	</div>
+</div>
+{% endblock %}

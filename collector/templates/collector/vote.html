@@ -1,0 +1,50 @@
+{% extends "collector/base.html" %}
+{% block title %}Twitter Elections{% endblock %}
+{% block content %}
+<div class="container">
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+      <div class="row">
+        <div class="col s12">
+          <div class="card ">
+            <div class="card-content">
+              <span class="card-title blue-text">Tweet {{sentiment}}:</span>
+              <p>{{ tweet.content }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+	<form action="{% url 'collector:vote' tweet.id %}" method="post">
+	{% csrf_token %}
+	<div class="row">
+
+	{% for choice in tweet.sentiment_set.all %}
+	<div class="col s12 m3 ">
+		{% if choice.sentiment_text = 'POS'%}
+
+			<button class="btn waves-effect waves-light green" id="choice{{ forloop.counter }}" value="{{ choice.id }}" type="input" name="choice"><i class="material-icons left">sentiment_satisfied</i>Positive</button>
+		{% elif choice.sentiment_text = 'NEG'%}
+
+			<button class="btn waves-effect waves-light red" id="choice{{ forloop.counter }}" value="{{ choice.id }}" type="input" name="choice"><i class="material-icons left">sentiment_dissatisfied</i>Negative</button>
+		{% elif choice.sentiment_text = 'UND'%}
+
+			<button class="btn waves-effect waves-light grey" id="choice{{ forloop.counter }}" value="{{ choice.id }}" type="input" name="choice"><i class="material-icons left">sentiment_neutral</i>Neutral</button>
+		{% elif choice.sentiment_text = 'IRR'%}
+			<button class="btn waves-effect waves-light" id="choice{{ forloop.counter }}" value="{{ choice.id }}" type="input" name="choice"><i class="material-icons left">sentiment_very_dissatisfied</i>Irrelevant</button>
+		{% endif %}
+	</div>
+	{% endfor %}
+	</div>
+	</form>
+	<div class="row">
+		<div class="col s12">
+		<h5>Other Actions: </h5>
+		</div>
+		<div class="col s12">
+			<a class="btn btn-lg light-blue" href="{% url 'collector:tweet_vote'%}">Next Tweet</a>
+			<a class="btn btn-lg grey" href="{% url 'collector:index'%}">Exit</a>
+		</div>
+	</div>
+</div>
+{% endblock %}

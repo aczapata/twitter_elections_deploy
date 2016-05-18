@@ -1,0 +1,14 @@
+{% extends "collector/base.html" %}
+{% block title %}Twitter Elections{% endblock %}
+{% block content %}
+
+	{% if tweets_list %}
+	    <ul>
+	    {% for tweet in tweets_list %}
+	        <li><a href="{% url 'collector:detail' tweet.id %}">{{ tweet.content }}</a></li>
+	    {% endfor %}
+	    </ul>
+	{% else %}
+	    <p>No tweets are now available.</p>
+	{% endif %}
+{% endblock %}

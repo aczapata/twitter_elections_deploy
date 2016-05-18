@@ -1,0 +1,25 @@
+{% extends "collector/base.html" %}
+{% load staticfiles%}
+{% block title %}Twitter Elections{% endblock %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col s6 red white-text center">
+				<h2> Option 1 </h2>
+				<img class="circle responsive-img compare-img" src="{% static 'collector/images/DemocraticLogo.png' %}" alt="Contact Person">
+				<h3>{{OP1_tweets_number}} Tweets</h3>
+				<p> {{OP1_hashtags_number}} Hashtags</p>
+				<p> {{OP1_users_number}} Mentions </p>
+				<p> {{OP1_owners_number}} Users </p>
+			</div>
+			<div class="col s6 blue white-text center">
+				<h2> Option 2 </h2>
+				<img class="circle responsive-img compare-img" src="{% static 'collector/images/DemocraticLogo.png' %}" alt="Contact Person">
+				<h3>{{OP2_tweets_number}} Tweets</h3>
+				<p> {{OP2_hashtags_number}} Hashtags</p>
+				<p> {{OP2_users_number}} Mentions </p>
+				<p> {{OP2_owners_number}} Users </p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

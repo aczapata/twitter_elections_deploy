@@ -1,0 +1,175 @@
+{% extends "collector/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Twitter Elections{% endblock %}
+{% block navlinks %}
+ 		<li><a href="#what">What?</a></li>
+        <li><a href="#where">Where?</a></li>
+        <li><a href="#how">How?</a></li>
+        <li><a href="#actions">Actions</a></li>
+        <li><a href="#team">Team</a></li>
+{% endblock %}
+
+{% block content %}
+
+	<div id="index-banner" class="parallax-container">
+    <div class="parallax"><img src="{% static 'collector/images/word-cloud.png' %}" alt="banner"></div>
+	</div>
+<div class="container">
+	<section id="what" class="scrollspy">
+
+		<div class="row valign-wrapper">
+			<div class= "col s12">
+				<h2 class="blue-text center">What is Twitter Elections?</h2>
+				<img class= "col s5 m3 responsive-img" src="{% static 'collector/images/twitter-elections-logo.png' %}" alt="Logo Image"/>
+				<div class="col s7 m9">
+				<p class="valign flow-text">
+					Twitter Elections is the implementation of Sentiment Analysis Tool in the 2016 United States Elections. We use tweets in order to determine the opinions of Twitter Users towards the political candidates and parties during the pre-election period.
+				</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="where" class="scrollspy">
+
+		<div class="row valign-wrapper">
+			<div class= "col s12">
+			<h2 class="blue-text center">What is being analyzed?</h2>
+			<img class= "col s5 m3 responsive-img" src="{% static 'collector/images/twitter-api.png' %}" alt="API Image"/>
+			<div class="col s7 m9">
+
+			<p class="valign flow-text">
+				We have taked samples of tweets during important events of the pre-election period (Super Tuesday, Florida Primaries, Republican Debate, Democratic Debate) using the Twitter API. We have chosen tweets that contain the words: Donald Trump, Hillary Clinton, Marco Rubio, Ted Cruz, Bernie Sanders ... and the hashtags: #Aqui van los hashtags#
+			</p>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section id="how" class="scrollspy">
+
+		<div class="row valign-wrapper">
+			<div class= "col s12">
+			<h2 class="blue-text center">How does it works?</h2>
+			<img class= "col s5 m3 responsive-img" src="{% static 'collector/images/sentiment_logo.png' %}" alt="How Image"/>
+			<div class="col s7 m9">
+			<p class="valign flow-text">
+				We apply different methods to determine the <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="A Sentiment is the emotional significance of a passage or expression as distinguished from its verbal context. ">Sentiment</a> of a tweet in order to determine if it is positive, neutral or negative. To do so we have implemented two <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="A lexicon is a document containing an alphabetical arrangement of the words in a language and sentiment polarity "> Lexicons</a>: Sentlex and SO-CAL and a <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Machine learning is a type of artificial intelligence (AI) that provides computers with the ability to learn without being explicitly programmed."> Machine Learning </a> techinique: Naive Bayes Classifier.
+			</p>
+			</div>
+			</div>
+		</div>
+	</section>
+	<section id="actions">
+		<div class="row valign-wrapper">
+			<div class= "col s12">
+				<h2 class="blue-text center">Actions</h2>
+			    <div class="row center">
+		            <div class="col s4">
+		            	<h3 class= "center">Filter</h3>
+		            	<a href= "{% url 'collector:filter' %}"><i class="fa fa-filter fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
+		            </div>
+		            <div class="col s4">
+		            	<h3 class= "center">Map</h3>
+		            	<a href= "{% url 'collector:map'%}"><i class="fa fa-globe fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
+		            </div>
+		            <div class="col s4">
+		            	<h3 class= "center">Vote</h3>
+		            	<a class="hvr-icon-grow" href= "{% url 'collector:instructions' %}"><i class="fa fa-star fa-5x grey-text " aria-hidden="true"></i></a>
+		            </div>
+		        </div>
+	        </div>
+	    </div>
+	</section>
+	<section id="team" class="scrollspy" >
+		<div class="row valign-wrapper">
+			<div class= "col s12">
+		        <h2 class="blue-text center"> Our Team </h2>
+		        <div class="row">
+		            <div class="col s12 l4">
+		                <div class="card card-avatar">
+		                    <div class="waves-effect waves-block waves-light">
+		                        <img class="activator" src="{% static 'collector/images/avatar-andre.png' %}">
+		                    </div>
+		                    <div class="card-content">
+		                        <span class="card-title activator grey-text text-darken-4">Andrea Z <br/>
+		                            <small><em><a class="red-text text-darken-1" href="#">aczapata@uninorte.edu.co</a></em></small></span>
+		                        <p>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-facebook-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-twitter-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-google-plus-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-linkedin-square"></i>
+		                            </a>
+		                        </p>
+		                    </div>
+		                </div>
+		            </div>
+
+		            <div class="col s12 l4">
+		                <div class="card card-avatar center">
+		                    <div class="waves-effect waves-block waves-light">
+		                        <img class="activator" src="{% static 'collector/images/avatar-meli.png' %}">
+		                    </div>
+		                    <div class="card-content">
+		                        <span class="card-title activator grey-text text-darken-4">Melissa M<br/>
+		                            <small><em><a class="red-text text-darken-1" href="#">melissaam@uninorte.edu.co</a></em></small>
+		                        </span>
+		                        <p>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-facebook-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-twitter-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-google-plus-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-linkedin-square"></i>
+		                            </a>
+		                        </p>
+		                    </div>
+		                </div>
+		            </div>
+
+		            <div class="col s12 l4">
+		                <div class="card card-avatar">
+		                    <div class="waves-effect waves-block waves-light">
+		                        <img class="activator" src="{% static 'collector/images/avatar-pw.png' %}">
+		                    </div>
+		                    <div class="card-content">
+		                        <span class="card-title activator grey-text text-darken-4">Pedro W<br/>
+		                            <small><em><a class="red-text text-darken-1" href="#">pwightman@uninorte.edu.co</a></em></small>
+		                        </span>
+		                        <p>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-facebook-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-twitter-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-google-plus-square"></i>
+		                            </a>
+		                            <a class="blue-text text-lighten-2" href="#">
+		                                <i class="fa fa-linkedin-square"></i>
+		                            </a>
+		                        </p>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</section>
+</div>
+
+{% endblock %}
