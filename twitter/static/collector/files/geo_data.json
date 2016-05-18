@@ -1,0 +1,41 @@
+[
+    {
+        "geometry": {
+            "type": "Point", 
+            "coordinates": [
+                -86.9023, 
+                32.3182
+            ]
+        }, 
+        "type": "Feature", 
+        "properties": {
+            "text": "Thanks for having me on @POTUSPressPool to talk about my story on Trump and the GOP foreign policy establishment! https://t.co/9EtsL4uJbf"
+        }
+    }, 
+    {
+        "geometry": {
+            "type": "Point", 
+            "coordinates": [
+                -88.694143, 
+                34.431279
+            ]
+        }, 
+        "type": "Feature", 
+        "properties": {
+            "text": "most young Americans know when &amp; where is the next happy hour. Anything else is irrelevant  https://t.co/OML2QZpWrF"
+        }
+    }, 
+    {
+        "geometry": {
+            "type": "Point", 
+            "coordinates": [
+                -87.6262672, 
+                41.8880456
+            ]
+        }, 
+        "type": "Feature", 
+        "properties": {
+            "text": "RT @JTSantucci: Trump campaign's @CLewandowski_ reacts to Cruz - \"This is his effort to gain attention to try and stay relevant in a race t\u2026"
+        }
+    }
+]
