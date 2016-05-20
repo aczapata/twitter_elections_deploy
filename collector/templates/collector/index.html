@@ -21,9 +21,9 @@
 		<div class="row valign-wrapper">
 			<div class= "col s12">
 				<h2 class="blue-text center">What is Twitter Elections?</h2>
-				<img class= "col s5 m3 responsive-img" src="{% static 'collector/images/twitter-elections-logo.png' %}" alt="Logo Image"/>
-				<div class="col s7 m9">
-				<p class="valign flow-text">
+				<img class= "col s6 offset-s3 m3 responsive-img" src="{% static 'collector/images/twitter-elections-logo.png' %}" alt="Logo Image"/>
+				<div class="col s12 m9">
+				<p class="valign flow-text center">
 					Twitter Elections is the implementation of Sentiment Analysis Tool in the 2016 United States Elections. We use tweets in order to determine the opinions of Twitter Users towards the political candidates and parties during the pre-election period.
 				</p>
 				</div>
@@ -36,10 +36,10 @@
 		<div class="row valign-wrapper">
 			<div class= "col s12">
 			<h2 class="blue-text center">What is being analyzed?</h2>
-			<img class= "col s5 m3 responsive-img" src="{% static 'collector/images/twitter-api.png' %}" alt="API Image"/>
-			<div class="col s7 m9">
+			<img class= "col s6 offset-s3 m3 responsive-img" src="{% static 'collector/images/twitter-api.png' %}" alt="API Image"/>
+			<div class="col s12 m9">
 
-			<p class="valign flow-text">
+			<p class="valign flow-text center">
 				We have taked samples of tweets during important events of the pre-election period (Super Tuesday, Florida Primaries, Republican Debate, Democratic Debate) using the Twitter API. We have chosen tweets that contain the words: Donald Trump, Hillary Clinton, Marco Rubio, Ted Cruz, Bernie Sanders ... and the hashtags: #Aqui van los hashtags#
 			</p>
 			</div>
@@ -52,9 +52,9 @@
 		<div class="row valign-wrapper">
 			<div class= "col s12">
 			<h2 class="blue-text center">How does it works?</h2>
-			<img class= "col s5 m3 responsive-img" src="{% static 'collector/images/sentiment_logo.png' %}" alt="How Image"/>
-			<div class="col s7 m9">
-			<p class="valign flow-text">
+			<img class= "col s6 offset-s3 m3 responsive-img" src="{% static 'collector/images/sentiment_logo.png' %}" alt="How Image"/>
+			<div class="col s12 m9">
+			<p class="valign flow-text center">
 				We apply different methods to determine the <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="A Sentiment is the emotional significance of a passage or expression as distinguished from its verbal context. ">Sentiment</a> of a tweet in order to determine if it is positive, neutral or negative. To do so we have implemented two <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="A lexicon is a document containing an alphabetical arrangement of the words in a language and sentiment polarity "> Lexicons</a>: Sentlex and SO-CAL and a <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Machine learning is a type of artificial intelligence (AI) that provides computers with the ability to learn without being explicitly programmed."> Machine Learning </a> techinique: Naive Bayes Classifier.
 			</p>
 			</div>
@@ -67,16 +67,16 @@
 				<h2 class="blue-text center">Actions</h2>
 			    <div class="row center">
 		            <div class="col s4">
-		            	<h3 class= "center">Filter</h3>
-		            	<a href= "{% url 'collector:filter' %}"><i class="fa fa-filter fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
+		            	<h3 class= "center">Results</h3>
+		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="..." href= "{% url 'collector:results' %}"><i class="fa fa-list-ul fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
 		            </div>
 		            <div class="col s4">
 		            	<h3 class= "center">Map</h3>
-		            	<a href= "{% url 'collector:map'%}"><i class="fa fa-globe fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
+		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="..." href= "{% url 'collector:map'%}"><i class="fa fa-globe fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
 		            </div>
 		            <div class="col s4">
 		            	<h3 class= "center">Vote</h3>
-		            	<a class="hvr-icon-grow" href= "{% url 'collector:instructions' %}"><i class="fa fa-star fa-5x grey-text " aria-hidden="true"></i></a>
+		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="..." class="hvr-icon-grow" href= "{% url 'collector:instructions' %}"><i class="fa fa-star fa-5x grey-text " aria-hidden="true"></i></a>
 		            </div>
 		        </div>
 	        </div>

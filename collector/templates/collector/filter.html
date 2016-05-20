@@ -5,42 +5,49 @@
 {% block content %}
 <div class="row blue-grey lighten-5">
 		<aside class="col s12 l3 reset-padding white">
-			<div class="header white black-text">
+		<ul class="collapsible collapsible-accordion reset-margin ">
+			<li>
+			<div class="header collapsible-header white black-text">
 				<h5><i class="fa fa-filter" aria-hidden="true"></i> Filter</h5>
 			</div>
-			<form action="" method="post">
-        		{% csrf_token %}
-				<ul class="collapsible collapsible-accordion reset-margin ">
-					<li><a class="collapsible-header waves-effect black-text">Parties and Candidates</a>
-					   <div class="collapsible-body">
-					       <ul>
-						       	<li>
-						       		<p>
-						       		 {{  form.option }}
-						        	</p>
-						        </li>
-					        </ul>
-					    </div>
-					</li>
-					<li><a class="collapsible-header  waves-effect black-text">Events</a>
-						<div class="collapsible-body">
-					  		<ul>
-					  			<li>
-					  				<p>
-					  				{{  form.event }}
-					            	</p>
-					            </li>
-					        </ul>
-					    </div>
-					</li>
-					<li class="btn-filter white">
-					    <button type="submit" name="filter" class="save btn btn-default light-blue"> Filter </button>
-					</li>
-				</ul>
-			</form>
-			<div class="header white black-text">
+			<div class="collapsible-body">
+				<form action="" method="post">
+	        		{% csrf_token %}
+					<ul class="collapsible collapsible-accordion reset-margin ">
+						<li><a class="collapsible-header waves-effect black-text">Parties and Candidates</a>
+						   <div class="collapsible-body">
+						       <ul>
+							       	<li>
+							       		<p>
+							       		 {{  form.option }}
+							        	</p>
+							        </li>
+						        </ul>
+						    </div>
+						</li>
+						<li><a class="collapsible-header  waves-effect black-text">Events</a>
+							<div class="collapsible-body">
+						  		<ul>
+						  			<li>
+						  				<p>
+						  				{{  form.event }}
+						            	</p>
+						            </li>
+						        </ul>
+						    </div>
+						</li>
+						<li class="btn-filter white">
+						    <button type="submit" name="filter" class="save btn btn-default light-blue"> Filter </button>
+						</li>
+					</ul>
+				</form>
+			</div>
+			</li>
+			<li>
+			<div class="header collapsible-header white black-text">
 				<h5><i class="fa fa-balance-scale" aria-hidden="true"></i> Compare</h5>
 			</div>
+			<div class="collapsible-body">
 			<form action="" method="post">
 				{% csrf_token %}
 				<ul class="collapsible collapsible-accordion reset-margin ">
@@ -82,6 +89,8 @@
 					</li>
 				</ul>
 		  	</form>
+		  	</div>
+		  	</li>
 		</aside>
 
 		<div class="col s12 l9 blue-grey lighten-5">
@@ -128,7 +137,7 @@
 			          </div>
 			        </div>
 				<div class="col s12">
-			    	<div class="col m12 l4">
+			    	<div class="col s12 l4">
 			    	<ul class="collapsible white" data-collapsible="accordion">
 					    <li>
 					      <div class="collapsible-header large"><i class="fa fa-hashtag large-i circle purple white-text" aria-hidden="true"></i>Top Hashtags</div>
@@ -145,7 +154,7 @@
 					  </ul>
 
 			    	</div>
-			    	<div class="col m12 l4">
+			    	<div class="col s12 l4">
 			    		<ul class="collapsible white" data-collapsible="accordion">
 					    <li>
 					      <div class="collapsible-header large"><i class="fa fa-tags large-i circle pink white-text" aria-hidden="true"></i>Top Mentions</div>
@@ -161,7 +170,7 @@
 					    </li>
 					  </ul>
 			    	</div>
-			    	<div class="col m12 l4">
+			    	<div class="col s12 l4">
 			    		<ul class="collapsible white" data-collapsible="accordion">
 					    <li>
 					      <div class="collapsible-header large"><i class="fa fa-users large-i circle teal white-text" aria-hidden="true"></i>Top Hashtags</div>

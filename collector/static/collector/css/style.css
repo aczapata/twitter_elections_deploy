@@ -46,7 +46,9 @@ p {
   line-height: 3rem;
   padding: 1rem;
   }
-
+.header h5{
+  display: inline-block;
+}
 .reset-margin{
   margin: 0;
 }

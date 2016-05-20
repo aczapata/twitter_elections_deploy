@@ -37,7 +37,7 @@ def get_file(option, event):
     return "./static/files/json_data_" + option + "_" + event
 
 
-def filter(request):
+def results(request):
     context = []
     if request.method == "POST":
         print "here"
@@ -143,10 +143,10 @@ def vote(request, tweet_id):
         selected_choice.save()
 
         return HttpResponseRedirect(
-            reverse('collector:results', args=(tweet.id,)))
+            reverse('collector:results_tweet', args=(tweet.id,)))
 
 
-def results(request, tweet_id):
+def results_tweet(request, tweet_id):
     tweet = get_object_or_404(TwitterData, pk=tweet_id)
     x = ['positive', 'negative', 'neutral', 'irrelevant']
     pos_votes = tweet.sentiment_set.get(sentiment_text='POS').votes
