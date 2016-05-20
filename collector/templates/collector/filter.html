@@ -1,9 +1,10 @@
 {% extends "collector/base.html" %}
 {% load staticfiles %}
 {% block title %}Twitter Elections{% endblock %}
+
 {% block content %}
 <div class="row blue-grey lighten-5">
-		<aside class="col s5 l3 reset-padding white">
+		<aside class="col s12 l3 reset-padding white">
 			<div class="header white black-text">
 				<h5><i class="fa fa-filter" aria-hidden="true"></i> Filter</h5>
 			</div>
@@ -15,7 +16,7 @@
 					       <ul>
 						       	<li>
 						       		<p>
-						       		 {{  form.option1 }}
+						       		 {{  form.option }}
 						        	</p>
 						        </li>
 					        </ul>
@@ -37,187 +38,200 @@
 					</li>
 				</ul>
 			</form>
+			<div class="header white black-text">
+				<h5><i class="fa fa-balance-scale" aria-hidden="true"></i> Compare</h5>
+			</div>
+			<form action="" method="post">
+				{% csrf_token %}
+				<ul class="collapsible collapsible-accordion reset-margin ">
+					<li><a class="collapsible-header waves-effect black-text">First Party or Candidate</a>
+					   <div class="collapsible-body">
+					       <ul>
+						       	<li>
+						       		<p>
+						       		 {{  compare_form.option1 }}
+						        	</p>
+						        </li>
+					        </ul>
+					    </div>
+					</li>
+					<li><a class="collapsible-header waves-effect black-text">Second Party or Candidate</a>
+					   <div class="collapsible-body">
+					       <ul>
+						       	<li>
+						       		<p>
+						       		 {{  compare_form.option2 }}
+						        	</p>
+						        </li>
+					        </ul>
+					    </div>
+					</li>
+					<li><a class="collapsible-header  waves-effect black-text">Events</a>
+						<div class="collapsible-body">
+					  		<ul>
+					  			<li>
+					  				<p>
+					  				{{  compare_form.event }}
+					            	</p>
+					            </li>
+					        </ul>
+					    </div>
+					</li>
+					<li class="btn-filter white">
+					    <button type="submit" name="compare" class="save btn btn-default light-blue"> Compare </button>
+					</li>
+				</ul>
+		  	</form>
 		</aside>
-		<div class="col s7 l9 blue-grey lighten-5">
-			<div class="col s12 filters">
-				{% if filled_form.option1.value == "DP" %}
-				<div class="chip">
-				    <img src="{% static 'collector/images/DemocraticLogo.png' %}" alt="Contact Person">
-				    Democratic Party
-				 </div>
-				 {% elif filled_form.option1.value == "RP" %}
-				 <div class="chip">
-				    <img src="{% static 'collector/images/RepublicanLogo.png' %}" alt="Contact Person">
-				    Republican Party
-				 </div>
-				 {% elif filled_form.option1.value == "DT" %}
-				 <div class="chip">
-				    <img src="{% static 'collector/images/donald-trump.png' %}" alt="Contact Person">
-				    Donald Trump
-				 </div>
-				 {% elif filled_form.option1.value == "HC" %}
-				 <div class="chip">
-				    <img src="{% static 'collector/images/hillary-clinton.png' %}" alt="Contact Person">
-				    Hillary Clinton
-				 </div>
-				 {% elif filled_form.option1.value == "MR" %}
-				 <div class="chip">
-				    <img src="{% static 'collector/images/marco-rubio.png' %}" alt="Contact Person">
-				    Marco Rubio
-				 </div>
-				 {% elif filled_form.option1.value == "TC"%}
-				 <div class="chip">
-				    <img src="{% static 'collector/images/ted-cruz.png' %}" alt="Contact Person">
-				    Ted Cruz
-				 </div>
-				 {% elif filled_form.option1.value == "BS" %}
-				 <div class="chip">
-				    <img src="{% static 'collector/images/bernie-sanders.png' %}" alt="Contact Person">
-				    Bernie Sanders
-				 </div>
-				 {% endif%}
-			</div>
-			<div class="col s12">
-			    <div class="col s12 m6 l6 offset-l3">
-		          <div class="card light-blue">
-		            	<div class="card-content center white-text">
-		              		<span class="card-title "><i class="fa fa-twitter" aria-hidden="true"></i> Tweets</span>
-		                   	<h4 >{{ tweets_number}}</h4>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="col s12">
-		        <div class="col s12 m6 l4">
-		          <div class="card purple">
-		            <div class="card-content center white-text">
-		              <span class="card-title"><i class="fa fa-hashtag" aria-hidden="true"></i> Hashtags </span>
-		              <h4>{{ hashtags_number}}</h4>
-		            </div>
-		          </div>
-		        </div>
 
-		        <div class="col s12 m6 l4">
-		          <div class="card pink">
-		            <div class="card-content center white-text">
-		              <span class="card-title"> <i class="fa fa-tags" aria-hidden="true"></i> Mentions </span>
-		              <h4>{{ users_number}}</h4>
-		            </div>
-		          </div>
-		        </div>
+		<div class="col s12 l9 blue-grey lighten-5">
+			{% if filters%}
+			<section id="filter">
+				<div class="col s12 filters">
+					<div class="chip">
+					<img  src="{% static 'collector/images/'%}{{img}}  " alt="Contact Person">
+					 {{name}}
+					 </div>
+				</div>
+				    <div class="col s12 m6 l6 offset-l3">
+			          <div class="card light-blue">
+			            	<div class="card-content center white-text">
+			              		<span class="card-title "><i class="fa fa-twitter" aria-hidden="true"></i> Tweets</span>
+			                   	<h4 >{{ tweets_number}}</h4>
+			                </div>
+			            </div>
+			        </div>
+			        <div class="col s12 m6 l4">
+			          <div class="card purple">
+			            <div class="card-content center white-text">
+			              <span class="card-title"><i class="fa fa-hashtag" aria-hidden="true"></i> Hashtags </span>
+			              <h4>{{ hashtags_number}}</h4>
+			            </div>
+			          </div>
+			        </div>
 
-		        <div class="col s12 m6 l4">
-		          <div class="card teal">
-		            <div class="card-content center white-text">
-		              <span class="card-title"><i class="fa fa-users" aria-hidden="true"></i> Users </span>
-		              <h4>{{ owners_number}}</h4>
-		            </div>
-		          </div>
-		        </div>
-			</div>
-			<div class="col s12">
-		    	<div class="col s12 m4">
-		    		<ul class="collection">
-						<li class="collection-item avatar">
-							<i class="fa fa-hashtag circle purple" aria-hidden="true"></i><h5>Top Hashtags</h5>
-						</li>
-						{% for i,v in top_hashtags%}
-		    				<li class="collection-item avatar">
-		    					<p>{{i}}</p>
-		    					<p class="secondary-content"> {{v}}</p>
-		    				</li>
-		    			{% endfor %}
-		    		</ul>
-		    	</div>
-		    	<div class="col s12 m4">
-		    		<ul class="collection">
-						<li class="collection-item avatar">
-							<i class="fa fa-tags circle pink" aria-hidden="true"></i> <h5>Top Mentions</h5>
-						</li>
-						{% for i,v in top_users%}
-		    				<li class="collection-item avatar">
-		    					<p>{{i}}</p>
-		    					<p class="secondary-content">{{v}}</p>
-		    				</li>
-		    			{% endfor %}
-		    		</ul>
-		    	</div>
-		    	<div class="col s12 m4">
-		    		<ul class="collection">
-						<li class="collection-item avatar">
-							<i class="fa fa-users circle teal" aria-hidden="true"></i> <h5>Top Users</h5>
-						</li>
-						{% for i,v in top_owners%}
-		    				<li class="collection-item avatar">
-		    					<p>{{i}}</p>
-		    					<p class="secondary-content">{{v}}</p>
-		    				</li>
-		    			{% endfor %}
-		    		</ul>
-		    	</div>
-		    </div>
-			<div class="col s12">
-				<div class="col s12 m6">
-			        <div class="card">
-					    <div class="card-image waves-effect waves-block waves-light">
-					      {{graph_languages |safe}}
-					    </div>
-					    <div class="card-content">
-					      <span class="card-title activator grey-text text-darken-4">Languages<i class="material-icons right">more_vert</i></span>
-					    </div>
-					    <div class="card-reveal">
-					      <span class="card-title grey-text text-darken-4">Languages Description<i class="material-icons right">close</i></span>
-					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
-					    </div>
+			        <div class="col s12 m6 l4">
+			          <div class="card pink">
+			            <div class="card-content center white-text">
+			              <span class="card-title"> <i class="fa fa-tags" aria-hidden="true"></i> Mentions </span>
+			              <h4>{{ users_number}}</h4>
+			            </div>
+			          </div>
+			        </div>
+
+			        <div class="col s12 m6 l4">
+			          <div class="card teal">
+			            <div class="card-content center white-text">
+			              <span class="card-title"><i class="fa fa-users" aria-hidden="true"></i> Users </span>
+			              <h4>{{ owners_number}}</h4>
+			            </div>
+			          </div>
+			        </div>
+				<div class="col s12">
+			    	<div class="col m12 l4">
+			    	<ul class="collapsible white" data-collapsible="accordion">
+					    <li>
+					      <div class="collapsible-header large"><i class="fa fa-hashtag large-i circle purple white-text" aria-hidden="true"></i>Top Hashtags</div>
+					      <div class="collapsible-body">
+					      	<ul>
+					      		{% for i,v in top_hashtags%}
+			    				<li class="collection-item avatar">
+			    					<p>{{i}} : {{v}}</p>
+			    				</li>
+			    			{% endfor %}
+					      	</ul>
+					      </div>
+					    </li>
+					  </ul>
+
+			    	</div>
+			    	<div class="col m12 l4">
+			    		<ul class="collapsible white" data-collapsible="accordion">
+					    <li>
+					      <div class="collapsible-header large"><i class="fa fa-tags large-i circle pink white-text" aria-hidden="true"></i>Top Mentions</div>
+					      <div class="collapsible-body">
+					      	<ul>
+					      		{% for i,v in top_users%}
+			    				<li class="collection-item avatar">
+			    					<p>{{i}} : {{v}}</p>
+			    				</li>
+			    			{% endfor %}
+					      	</ul>
+					      </div>
+					    </li>
+					  </ul>
+			    	</div>
+			    	<div class="col m12 l4">
+			    		<ul class="collapsible white" data-collapsible="accordion">
+					    <li>
+					      <div class="collapsible-header large"><i class="fa fa-users large-i circle teal white-text" aria-hidden="true"></i>Top Hashtags</div>
+					      <div class="collapsible-body">
+					      	<ul>
+					      		{% for i,v in top_owners%}
+			    				<li class="collection-item avatar">
+									<p>{{i}} : {{v}}</p>
+			    				</li>
+			    			{% endfor %}
+					      	</ul>
+					      </div>
+					    </li>
+					  </ul>
+			    	</div>
+			    </div>
+				<div class="col s12">
+					<div class="col m12 l6">
+				        <div class="card">
+						    <div class="card-image waves-effect waves-block waves-light">
+						      {{graph_languages |safe}}
+						    </div>
+						    <div class="card-content">
+						      <span class="card-title activator grey-text text-darken-4">Languages<i class="material-icons right">more_vert</i></span>
+						    </div>
+						    <div class="card-reveal">
+						      <span class="card-title grey-text text-darken-4">Languages Description<i class="material-icons right">close</i></span>
+						      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+						    </div>
+						</div>
 					</div>
-				</div>
-				<div class="col s12 m6">
-					<div class="card">
-				    	<div class="card-image waves-effect waves-block waves-light">
-				      		{{graph_sentiment |safe}}
-				    	</div>
-					    <div class="card-content">
-					      <span class="card-title activator grey-text text-darken-4">Sentiment<i class="material-icons right">more_vert</i></span>
-					    </div>
-					    <div class="card-reveal">
-				      		<span class="card-title grey-text text-darken-4">Sentiment<i class="material-icons right">close</i></span>
-				      		<p>Here is some more information about this product that is only revealed once clicked on.</p>
-				    	</div>
-					</div>
-				</div>
-				<div class="col s12 l6">
-		            <div class="card orange">
-		            	<div class="card-content center white-text">
-		              		<form action="" method="post">
-		              				<div class="col s12">
-		              				<span class="card-title">Compare Results:</span>
-							    	{% csrf_token %}
-							    	</div>
-							    	<div class="col s12 m6 l3">
-						       		<p>Option 1:</p>
-						            </div>
-						            <div class="col s12 m6 l9 input-field">
-						            {{  compare_form.option1 }}
-						            </div>
-						            <div class="col s12 m6 l3">
-						       		<p>Option 2:</p>
-						            </div>
-						            <div class="col s12 m6 l9 input-field">
-						            {{  compare_form.option2 }}
-						            </div>
-						            <div class="col s12 m6 l3">
-						       		<p>Event:</p>
-						       		</div>
-						            <div class="col s12 m6 l9 input-field">
-						            {{  compare_form.event }}
-						            </div>
-							    <button type="submit" name="compare" class="save btn btn-default light-blue"> Compare </button>
-					    	</form>
+					<div class="col m12 l6">
+						<div class="card">
+					    	<div class="card-image waves-effect waves-block waves-light">
+					      		{{graph_sentiment |safe}}
+					    	</div>
+						    <div class="card-content">
+						      <span class="card-title activator grey-text text-darken-4">Sentiment<i class="material-icons right">more_vert</i></span>
+						    </div>
+						    <div class="card-reveal">
+					      		<span class="card-title grey-text text-darken-4">Sentiment<i class="material-icons right">close</i></span>
+					      		<p>Here is some more information about this product that is only revealed once clicked on.</p>
+					    	</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+			</section>
+			{%else%}
+			<section id="compare">
 
+			<div class="row">
+				<div class="col s6 white center">
+					<h2> {{OP1_name}} </h2>
+					<img class="circle responsive-img compare-img" src="{% static 'collector/images/'%}{{OP1_img}}  " alt="Contact Person">
+					<h3>{{OP1_tweets_number}} Tweets</h3>
+					<p> {{OP1_hashtags_number}} Hashtags</p>
+					<p> {{OP1_users_number}} Mentions </p>
+					<p> {{OP1_owners_number}} Users </p>
+				</div>
+				<div class="col s6 white center">
+					<h2> {{OP2_name}} </h2>
+					<img class="circle responsive-img compare-img" src="{% static 'collector/images/'%}{{OP2_img}}">
+					<h3>{{OP2_tweets_number}} Tweets</h3>
+					<p> {{OP2_hashtags_number}} Hashtags</p>
+					<p> {{OP2_users_number}} Mentions </p>
+					<p> {{OP2_owners_number}} Users </p>
+				</div>
+			</div>
+			</section>
+			{%endif%}
+		</div>
+</div>
 {% endblock %}

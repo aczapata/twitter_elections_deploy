@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^filter/$', views.filter, name='filter'),
     url(r'^instructions/$', views.instructions, name='instructions'),
     url(r'^tweet/$', views.tweet_for_vote, name='tweet_vote'),
-    url(r'^compare/(?P<option1>[^/]+)&(?P<option2>[^/]+)&(?P<event>[^/]+)$', views.compare, name='compare'),
     url(r'^map/$', views.geo, name='map'),
     url(r'^(?P<tweet_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^(?P<tweet_id>[0-9]+)/results/$', views.results, name='results'),

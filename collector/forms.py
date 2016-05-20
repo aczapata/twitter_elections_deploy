@@ -1,5 +1,6 @@
 from django import forms
 
+
 class ResultsForm(forms.Form):
     # Parties
     choices_candidates = (
@@ -18,7 +19,7 @@ class ResultsForm(forms.Form):
         ('RD', 'Republican Debate'),
         ('DD', 'Democratic Debate'),
     )
-    option1 = forms.ChoiceField(choices=choices_candidates)
+    option = forms.ChoiceField(choices=choices_candidates)
     event = forms.ChoiceField(choices=choices_dates)
 
 

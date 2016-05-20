@@ -81,7 +81,31 @@ p {
     line-height: 30px !important;
 }
 
+/* -- Changing color on hover --*/
+#actions i.grey-text:hover {
+  color: #03a9f4 !important;
+}
 
+.pop-header{
+  min-height: 84px;
+  padding-left: 72px;
+  position: relative;
+  background-color: #fff;
+  line-height: 1.5rem;
+  padding: 10px 20px;
+  margin: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.large{
+  height: 70px;
+  font-size: 1.64rem;
+  margin: 0.82rem 0 0.656rem 0;
+}
+
+.large-i{
+  width: 3rem !important;
+}
 @media only screen and (max-width : 992px) {
   .parallax-container .section {
     position: absolute;

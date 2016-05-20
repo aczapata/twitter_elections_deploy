@@ -38,26 +38,39 @@ def get_file(option, event):
 
 
 def filter(request):
-    form = ResultsForm()
-    compare_form = CompareForm()
-
+    context = []
     if request.method == "POST":
+        print "here"
         if 'compare' in request.POST:
             compare_form = CompareForm(request.POST)
             if compare_form.is_valid():
+                form = ResultsForm()
                 op1 = compare_form.cleaned_data['option1']
                 op2 = compare_form.cleaned_data['option2']
                 ev = compare_form.cleaned_data['event']
-                return HttpResponseRedirect(reverse('collector:compare', args=(op1, op2, ev)))
+                file1 = open(get_file(op1, ev), "r")
+                context = {}
+                context1 = json.loads(file1.readline())
+                print get_file(op1, ev)
+                print context1
+                for a in context1:
+                    context.setdefault("OP1_" + a, context1[a])
+                file2 = open(get_file(op2, ev), "r")
+                context2 = json.loads(file2.readline())
+                for a in context2:
+                    context.setdefault("OP2_" + a, context2[a])
+                context.update({'filters': False, 'form': form, 'compare_form': compare_form})
+                return render(request, 'collector/filter.html', context)
         elif 'filter' in request.POST:
             form = ResultsForm(request.POST)
             if form.is_valid():
-                option = form.cleaned_data['option1']
+                option = form.cleaned_data['option']
                 event = form.cleaned_data['event']
                 file = open(get_file(option, event), "r")
                 json_data = file.readline()
                 context = json.loads(json_data)
-
+                print context
+                print get_file(option, event)
                 x = context['x_axis_language']
                 y = context['y_axis_language']
                 graph_languages = function_to_graph(x, y, 'language')
@@ -65,14 +78,14 @@ def filter(request):
                 x1 = context['x_axis_sentiment']
                 y1 = context['y_axis_sentiment']
                 graph_sentiment = function_to_graph(x1, y1, 'sentiment')
-
-                filled_form = ResultsForm(request.POST)
-                context.update({'form': form , 'filled_form': filled_form, 'compare_form': compare_form, 'graph_languages': graph_languages, 'graph_sentiment': graph_sentiment})
+                compare_form = CompareForm()
+                context.update({'filters': True, 'form': form , 'compare_form': compare_form, 'graph_languages': graph_languages, 'graph_sentiment': graph_sentiment})
                 return render(request, 'collector/filter.html', context)
             else:
                 print form.errors
     else:
-
+        form = ResultsForm()
+        compare_form = CompareForm()
         file = open("./static/files/json_data", "r")
         json_data = file.readline()
         context = json.loads(json_data)
@@ -82,7 +95,7 @@ def filter(request):
         x1 = context['x_axis_sentiment']
         y1 = context['y_axis_sentiment']
         graph_sentiment = function_to_graph(x1, y1, 'sentiment')
-        context.update({'form': form , 'compare_form': compare_form,  'graph_languages': graph_languages, 'graph_sentiment': graph_sentiment})
+        context.update({'filters': True, 'form': form, 'compare_form': compare_form, 'graph_languages': graph_languages, 'graph_sentiment': graph_sentiment})
     return render(request, 'collector/filter.html', context)
 
 
@@ -144,19 +157,6 @@ def results(request, tweet_id):
     graph_votes = function_to_graph(x, y, 'votes')
     total_votes = pos_votes + neg_votes + irr_votes + neu_votes
     return render(request, 'collector/results.html', {'tweet': tweet , 'graph_votes': graph_votes, 'total_votes': total_votes})
-
-
-def compare(request, option1, option2, event):
-    file1 = open(get_file(option1, event), "r")
-    context = {}
-    context1 = json.loads(file1.readline())
-    for a in context1:
-        context.setdefault("OP1_" + a, context1[a])
-    file2 = open(get_file(option2, event), "r")
-    context2 = json.loads(file2.readline())
-    for a in context2:
-        context.setdefault("OP2_" + a, context2[a])
-    return render(request, 'collector/compare.html', context)
 
 
 def radar_plot():
