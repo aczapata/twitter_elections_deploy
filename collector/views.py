@@ -41,7 +41,6 @@ def get_file(option, event):
 def results(request):
     context = []
     if request.method == "POST":
-        print "here"
         if 'compare' in request.POST:
             compare_form = CompareForm(request.POST)
             if compare_form.is_valid():
@@ -58,10 +57,12 @@ def results(request):
                 context2 = json.loads(file2.readline())
                 for a in context2:
                     context.setdefault("OP2_" + a, context2[a])
+                """
                 labels =['positive', 'negative','neutral','irrelevant']
                 OP1 = context1["y_axis_sentiment"]
                 OP2 = context2["y_axis_sentiment"]
                 radar_graph(labels, OP1, OP2)
+                """
                 context.update({'filters': False, 'form': form, 'compare_form': compare_form})
                 return render(request, 'collector/filter.html', context)
         elif 'filter' in request.POST:
@@ -72,8 +73,6 @@ def results(request):
                 file = open(get_file(option, event), "r")
                 json_data = file.readline()
                 context = json.loads(json_data)
-                print context
-                print get_file(option, event)
                 x = context['x_axis_language']
                 y = context['y_axis_language']
                 graph_languages = function_to_graph(x, y, 'language')

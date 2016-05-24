@@ -55,7 +55,7 @@ def _radar_factory(num_vars):
     register_projection(RadarAxes)
     return theta
 
-def radar_graph(labels = [], values = [], optimum = [], optimum_2 = [], nombre_imagen="nombre_imagen"):
+def radar_graph(labels=[], values=[], optimum=[], optimum_2=[], nombre_imagen="nombre_imagen"):
     N = len(labels)
     theta = _radar_factory(N)
     max_val = max(max(optimum), max(values), max(optimum_2))
