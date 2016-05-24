@@ -100,7 +100,6 @@ def results(request):
 
 
 def geo(request):
-    radar_plot()
     return render(request, 'collector/geo.html')
 
 

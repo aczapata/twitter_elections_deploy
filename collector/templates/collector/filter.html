@@ -97,10 +97,12 @@
 			{% if filters%}
 			<section id="filter">
 				<div class="col s12 filters">
+				{% if name%}
 					<div class="chip">
 					<img  src="{% static 'collector/images/'%}{{img}}  " alt="Contact Person">
 					 {{name}}
 					 </div>
+					 {%endif%}
 				</div>
 				    <div class="col s12 m6 l6 offset-l3">
 			          <div class="card light-blue">

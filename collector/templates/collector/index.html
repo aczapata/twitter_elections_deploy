@@ -66,18 +66,19 @@
 			<div class= "col s12">
 				<h2 class="blue-text center">Actions</h2>
 			    <div class="row center">
-		            <div class="col s4">
+		            <div class="col s12 m4">
 		            	<h3 class= "center">Results</h3>
-		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="..." href= "{% url 'collector:results' %}"><i class="fa fa-list-ul fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
+		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Filter and Compare the results." href= "{% url 'collector:results' %}"><i class="fa fa-list-ul fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
 		            </div>
-		            <div class="col s4">
-		            	<h3 class= "center">Map</h3>
-		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="..." href= "{% url 'collector:map'%}"><i class="fa fa-globe fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
-		            </div>
-		            <div class="col s4">
+		             <div class="col s12 m4">
 		            	<h3 class= "center">Vote</h3>
-		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="..." class="hvr-icon-grow" href= "{% url 'collector:instructions' %}"><i class="fa fa-star fa-5x grey-text " aria-hidden="true"></i></a>
+		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Rate our tweets to compare your opinions with the analysis" class="hvr-icon-grow" href= "{% url 'collector:instructions' %}"><i class="fa fa-star fa-5x grey-text " aria-hidden="true"></i></a>
 		            </div>
+		            <div class="col s12 m4">
+		            	<h3 class= "center">Map</h3>
+		            	<a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="View the location of our tweets" href= "{% url 'collector:map'%}"><i class="fa fa-globe fa-5x grey-text hvr-bounce-in" aria-hidden="true"></i></a>
+		            </div>
+
 		        </div>
 	        </div>
 	    </div>
