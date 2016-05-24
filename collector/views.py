@@ -52,14 +52,16 @@ def results(request):
                 file1 = open(get_file(op1, ev), "r")
                 context = {}
                 context1 = json.loads(file1.readline())
-                print get_file(op1, ev)
-                print context1
                 for a in context1:
                     context.setdefault("OP1_" + a, context1[a])
                 file2 = open(get_file(op2, ev), "r")
                 context2 = json.loads(file2.readline())
                 for a in context2:
                     context.setdefault("OP2_" + a, context2[a])
+                labels =['positive', 'negative','neutral','irrelevant']
+                OP1 = context1["y_axis_sentiment"]
+                OP2 = context2["y_axis_sentiment"]
+                radar_graph(labels, OP1, OP2)
                 context.update({'filters': False, 'form': form, 'compare_form': compare_form})
                 return render(request, 'collector/filter.html', context)
         elif 'filter' in request.POST:
