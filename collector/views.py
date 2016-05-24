@@ -11,6 +11,7 @@ import matplotlib
 import matplotlib.path as path
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from radar import radar_graph
 
 
 def index(request):

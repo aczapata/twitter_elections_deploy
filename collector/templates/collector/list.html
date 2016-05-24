@@ -5,7 +5,7 @@
 	{% if tweets_list %}
 	    <ul>
 	    {% for tweet in tweets_list %}
-	        <li><a href="{% url 'collector:detail' tweet.id %}">{{ tweet.content }}</a></li>
+	        <li><a href="{% url 'collector:results_tweet' tweet.id %}">{{ tweet.content }}</a></li>
 	    {% endfor %}
 	    </ul>
 	{% else %}
