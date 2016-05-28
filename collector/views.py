@@ -11,7 +11,6 @@ import matplotlib
 import matplotlib.path as path
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from radar import radar_graph
 
 
 def index(request):
@@ -38,6 +37,36 @@ def get_file(option, event):
     return "./static/files/json_data_" + option + "_" + event
 
 
+def tests():
+    tweets = TwitterData.objects.all()
+    for tweet in tweets:
+        choices = tweet.sentiment_set.all()
+        max_votes = 0
+        vote_sentiment = None
+        for choice in choices:
+            if choice.votes > max_votes:
+                vote_sentiment = choice
+                max_votes = choice.votes
+        if vote_sentiment is not None:
+            print vote_sentiment
+        else:
+            print "No sentiment"
+
+
+def vote_sentiment(tweet):
+    choices = tweet.sentiment_set.all()
+    max_votes = 0
+    vote_sentiment = None
+    for choice in choices:
+        if choice.votes > max_votes:
+            vote_sentiment = choice
+            max_votes = choice.votes
+    if vote_sentiment is not None:
+        return vote_sentiment.sentiment_text
+    else:
+        return "No sentiment"
+
+
 def results(request):
     context = []
     if request.method == "POST":
@@ -57,12 +86,6 @@ def results(request):
                 context2 = json.loads(file2.readline())
                 for a in context2:
                     context.setdefault("OP2_" + a, context2[a])
-                """
-                labels =['positive', 'negative','neutral','irrelevant']
-                OP1 = context1["y_axis_sentiment"]
-                OP2 = context2["y_axis_sentiment"]
-                radar_graph(labels, OP1, OP2)
-                """
                 context.update({'filters': False, 'form': form, 'compare_form': compare_form})
                 return render(request, 'collector/filter.html', context)
         elif 'filter' in request.POST:
@@ -125,7 +148,6 @@ def tweet_for_vote(request):
         tweet.sentiment_set.create(sentiment_text="UND")
         tweet.sentiment_set.create(sentiment_text="NEG")
         tweet.sentiment_set.create(sentiment_text="POS")
-
     return render(request, 'collector/vote.html', {'tweet': tweet})
 
 
@@ -157,7 +179,9 @@ def results_tweet(request, tweet_id):
     y = [pos_votes, neg_votes, neu_votes, irr_votes]
     graph_votes = function_to_graph(x, y, 'votes')
     total_votes = pos_votes + neg_votes + irr_votes + neu_votes
-    return render(request, 'collector/results.html', {'tweet': tweet , 'graph_votes': graph_votes, 'total_votes': total_votes})
+    sentiment_vote = vote_sentiment(tweet)
+    print sentiment_vote
+    return render(request, 'collector/results.html', {'tweet': tweet , 'graph_votes': graph_votes, 'total_votes': total_votes, 'vote_sentiment': sentiment_vote})
 
 
 def radar_plot():

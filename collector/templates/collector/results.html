@@ -25,7 +25,7 @@
 		<div class="col s12 m6">
 			<div class="card">
            		<div class="card-content">
-             			<span class="card-title blue-text">Machine Decisions</span>
+             			<span class="card-title blue-text">Machine Decision</span>
            				{% if tweet.tweet_sentiment = 'positive'%}
            					<p><i class="material-icons left">sentiment_satisfied</i>Positive</p>
 						{% elif tweet.tweet_sentiment = 'negative'%}
@@ -34,6 +34,22 @@
 
 							<p><i class="material-icons left">sentiment_neutral</i>Neutral</p>
 						{% elif tweet.tweet_sentiment = 'irrelevant'%}
+							<p><i class="material-icons left">sentiment_very_dissatisfied</i>Irrelevant</p>
+						{% endif %}
+           		</div>
+
+         		</div>
+         	<div class="card">
+           		<div class="card-content">
+             			<span class="card-title blue-text">User Decision</span>
+           				{% if vote_sentiment = 'POS'%}
+           					<p><i class="material-icons left">sentiment_satisfied</i>Positive</p>
+						{% elif vote_sentiment = 'NEG'%}
+							<p><i class="material-icons left">sentiment_dissatisfied</i>Negative</p>
+						{% elif vote_sentiment = 'UND'%}
+
+							<p><i class="material-icons left">sentiment_neutral</i>Neutral</p>
+						{% elif vote_sentiment = 'IRR' %}
 							<p><i class="material-icons left">sentiment_very_dissatisfied</i>Irrelevant</p>
 						{% endif %}
            		</div>

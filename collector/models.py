@@ -42,4 +42,4 @@ class Sentiment(models.Model):
     tweet = models.ForeignKey(TwitterData, on_delete=models.CASCADE)
 
     def __unicode__(self):
-        return "Id: " + self.tweet.tweet_id + "  Type: " + self.sentiment_text
+        return "  Type: " + self.sentiment_text +"  Votes: " + str(self.votes)
