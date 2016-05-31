@@ -7,6 +7,14 @@
 	    {% for tweet in tweets_list %}
 	        <li><a href="{% url 'collector:results_tweet' tweet.id %}">{{ tweet.content }}</a></li>
 	    {% endfor %}
+	    <h3>Correct List {{cont_correct}}</h3>
+	    {% for tweet in correct %}
+	        <li><a href="{% url 'collector:results_tweet' tweet.id %}">{{ tweet.content }}</a></li>
+	    {% endfor %}
+	    <h3>Incorrect List {{cont_incorrect}}</h3>
+	    {% for tweet in incorrect %}
+	        <li><a href="{% url 'collector:results_tweet' tweet.id %}">{{ tweet.content }}</a></li>
+	    {% endfor %}
 	    </ul>
 	{% else %}
 	    <p>No tweets are now available.</p>

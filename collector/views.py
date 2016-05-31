@@ -19,12 +19,47 @@ def index(request):
 
 def list_tweets(request):
     tweets_list = TwitterData.objects.all()
-    context = {'tweets_list': tweets_list}
+    cont_correct = 0
+    cont_incorrect = 0
+    correct = []
+    incorrect = []
+
+    for tweet in tweets_list:
+        if vote_sentiment(tweet) == "POS":
+            sentiment_vote = "positive"
+        elif vote_sentiment(tweet) == "NEG":
+            sentiment_vote = "negative"
+        elif vote_sentiment(tweet) == "UND":
+            sentiment_vote = "neutral"
+        elif vote_sentiment(tweet) == "IRR":
+            sentiment_vote = "irrelevant"
+        else:
+            sentiment_vote = "not tagged"
+        if sentiment_vote != "not tagged":
+            if tweet.tweet_sentiment == sentiment_vote:
+                cont_correct += 1
+                correct.append(tweet)
+            else:
+                cont_incorrect += 1
+                incorrect.append(tweet)
+    print "Correct: " + str(cont_correct)
+    print "Incorrect: " + str(cont_incorrect)
+
+    context = {'tweets_list': tweets_list, 'correct': correct,'incorrect': incorrect, 'cont_correct': cont_correct, 'cont_incorrect': cont_incorrect }
     return render(request, 'collector/list.html', context)
 
 
 def function_to_graph(x_axis, y_axis, title):
     chart = pieChart(name=title, color_category='category20c', height=450, width=450)
+    xdata = x_axis
+    ydata = y_axis
+    extra_serie = {"tooltip": {"y_start": "", "y_end": "tweets"}}
+    chart.add_serie(y=ydata, x=xdata, extra=extra_serie)
+    chart.buildcontent()
+    return chart.htmlcontent
+
+def bar_chart(x_axis, y_axis, title):
+    chart = barChart(name=title, color_category='category20c', height=450, width=450)
     xdata = x_axis
     ydata = y_axis
     extra_serie = {"tooltip": {"y_start": "", "y_end": "tweets"}}
@@ -82,11 +117,20 @@ def results(request):
                 context1 = json.loads(file1.readline())
                 for a in context1:
                     context.setdefault("OP1_" + a, context1[a])
+
+                x1 = context1['x_axis_sentiment']
+                y1 = context1['y_axis_sentiment']
+                OP1_graph_sentiment = function_to_graph(x1, y1, 'sentiment1')
+
                 file2 = open(get_file(op2, ev), "r")
                 context2 = json.loads(file2.readline())
                 for a in context2:
                     context.setdefault("OP2_" + a, context2[a])
-                context.update({'filters': False, 'form': form, 'compare_form': compare_form})
+
+                x2 = context2['x_axis_sentiment']
+                y2 = context2['y_axis_sentiment']
+                OP2_graph_sentiment = function_to_graph(x2, y2, 'sentiment2')
+                context.update({'filters': False, 'form': form, 'compare_form': compare_form, 'OP1_graph_sentiment': OP1_graph_sentiment, 'OP2_graph_sentiment': OP2_graph_sentiment})
                 return render(request, 'collector/filter.html', context)
         elif 'filter' in request.POST:
             form = ResultsForm(request.POST)
@@ -126,12 +170,6 @@ def results(request):
 
 def geo(request):
     return render(request, 'collector/geo.html')
-
-
-def detail(request, tweet_id):
-    tweet = get_object_or_404(TwitterData, pk=tweet_id)
-    sentiment = tag_tweet_sentiment(tweet)
-    return render(request, 'collector/detail.html', {'tweet': tweet, 'sentiment': sentiment})
 
 
 def instructions(request):

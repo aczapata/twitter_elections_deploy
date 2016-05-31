@@ -190,21 +190,8 @@
 			    	</div>
 			    </div>
 				<div class="col s12">
-					<div class="col m12 l6">
-				        <div class="card">
-						    <div class="card-image waves-effect waves-block waves-light">
-						      {{graph_languages |safe}}
-						    </div>
-						    <div class="card-content">
-						      <span class="card-title activator grey-text text-darken-4">Languages<i class="material-icons right">more_vert</i></span>
-						    </div>
-						    <div class="card-reveal">
-						      <span class="card-title grey-text text-darken-4">Languages Description<i class="material-icons right">close</i></span>
-						      <p>We have chosen english as the main language to do the sentiment analysis due to the great proportion of tweets in this language and the resources available.</p>
-						    </div>
-						</div>
-					</div>
-					<div class="col m12 l6">
+
+					<div class="col m12 l6 offset-l3">
 						<div class="card">
 					    	<div class="card-image waves-effect waves-block waves-light">
 					      		{{graph_sentiment |safe}}
@@ -224,38 +211,31 @@
 			<section id="compare">
 
 			<div class="row">
-				<div class="col s6 white center">
+				<div class="col s12 l6 white center">
 					<h2> {{OP1_name}} </h2>
 					<img class="circle responsive-img compare-img" src="{% static 'collector/images/'%}{{OP1_img}}  " alt="Contact Person">
 					<h3>{{OP1_tweets_number}} Tweets</h3>
 					<p> {{OP1_hashtags_number}} Hashtags</p>
 					<p> {{OP1_users_number}} Mentions </p>
 					<p> {{OP1_owners_number}} Users </p>
+					<h3>Sentiment</h3>
+					<p>
+						{{OP1_graph_sentiment |safe}}
+					</p>
 				</div>
-				<div class="col s6 white center">
+
+				<div class="col s12 l6 white center">
 					<h2> {{OP2_name}} </h2>
 					<img class="circle responsive-img compare-img" src="{% static 'collector/images/'%}{{OP2_img}}">
 					<h3>{{OP2_tweets_number}} Tweets</h3>
 					<p> {{OP2_hashtags_number}} Hashtags</p>
 					<p> {{OP2_users_number}} Mentions </p>
 					<p> {{OP2_owners_number}} Users </p>
+					<h3>Sentiment</h3>
+					<p>
+						{{OP2_graph_sentiment |safe}}
+					</p>
 				</div>
-				<!--
-				<div class="col s6 white center">
-					<div class="card">
-				    	<div class="card-image waves-effect waves-block waves-light">
-				      		<img class="circle responsive-img compare-img" src="{% static 'collector/images/nombre_imagen.png' %}" alt="Radar_Graph">
-				    	</div>
-					    <div class="card-content">
-					      <span class="card-title activator grey-text text-darken-4">Sentiment<i class="material-icons right">more_vert</i></span>
-					    </div>
-					    <div class="card-reveal">
-				      		<span class="card-title grey-text text-darken-4">Sentiment<i class="material-icons right">close</i></span>
-				      		<p>Here is some more information about this product that is only revealed once clicked on.</p>
-				    	</div>
-					</div>
-				</div>
-				-->
 			</div>
 			</section>
 			{%endif%}
