@@ -23,25 +23,28 @@ def list_tweets(request):
     cont_incorrect = 0
     correct = []
     incorrect = []
-
+    total_votes = 0
     for tweet in tweets_list:
-        if vote_sentiment(tweet) == "POS":
-            sentiment_vote = "positive"
-        elif vote_sentiment(tweet) == "NEG":
-            sentiment_vote = "negative"
-        elif vote_sentiment(tweet) == "UND":
-            sentiment_vote = "neutral"
-        elif vote_sentiment(tweet) == "IRR":
-            sentiment_vote = "irrelevant"
-        else:
-            sentiment_vote = "not tagged"
-        if sentiment_vote != "not tagged":
-            if tweet.tweet_sentiment == sentiment_vote:
-                cont_correct += 1
-                correct.append(tweet)
+        tweet_total_votes = tweet_votes(tweet)
+        total_votes += tweet_total_votes
+        if tweet_total_votes > 2:
+            if vote_sentiment(tweet) == "POS":
+                sentiment_vote = "positive"
+            elif vote_sentiment(tweet) == "NEG":
+                sentiment_vote = "negative"
+            elif vote_sentiment(tweet) == "UND":
+                sentiment_vote = "neutral"
+            elif vote_sentiment(tweet) == "IRR":
+                sentiment_vote = "irrelevant"
             else:
-                cont_incorrect += 1
-                incorrect.append(tweet)
+                sentiment_vote = "not tagged"
+            if sentiment_vote != "not tagged":
+                if tweet.tweet_sentiment == sentiment_vote:
+                    cont_correct += 1
+                    correct.append(tweet)
+                else:
+                    cont_incorrect += 1
+                    incorrect.append(tweet)
     print "Correct: " + str(cont_correct)
     print "Incorrect: " + str(cont_incorrect)
 
@@ -207,6 +210,15 @@ def vote(request, tweet_id):
             reverse('collector:results_tweet', args=(tweet.id,)))
 
 
+def tweet_votes(tweet):
+    pos_votes = tweet.sentiment_set.get(sentiment_text='POS').votes
+    neg_votes = tweet.sentiment_set.get(sentiment_text='NEG').votes
+    neu_votes = tweet.sentiment_set.get(sentiment_text='UND').votes
+    irr_votes = tweet.sentiment_set.get(sentiment_text='IRR').votes
+    total_votes = pos_votes + neg_votes + irr_votes + neu_votes
+    return total_votes
+
+
 def results_tweet(request, tweet_id):
     tweet = get_object_or_404(TwitterData, pk=tweet_id)
     x = ['positive', 'negative', 'neutral', 'irrelevant']
@@ -218,7 +230,6 @@ def results_tweet(request, tweet_id):
     graph_votes = function_to_graph(x, y, 'votes')
     total_votes = pos_votes + neg_votes + irr_votes + neu_votes
     sentiment_vote = vote_sentiment(tweet)
-    print sentiment_vote
     return render(request, 'collector/results.html', {'tweet': tweet , 'graph_votes': graph_votes, 'total_votes': total_votes, 'vote_sentiment': sentiment_vote})
 
 
