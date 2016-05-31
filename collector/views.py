@@ -27,24 +27,23 @@ def list_tweets(request):
     for tweet in tweets_list:
         tweet_total_votes = tweet_votes(tweet)
         total_votes += tweet_total_votes
-        if tweet_total_votes > 2:
-            if vote_sentiment(tweet) == "POS":
-                sentiment_vote = "positive"
-            elif vote_sentiment(tweet) == "NEG":
-                sentiment_vote = "negative"
-            elif vote_sentiment(tweet) == "UND":
-                sentiment_vote = "neutral"
-            elif vote_sentiment(tweet) == "IRR":
-                sentiment_vote = "irrelevant"
+        if total_vote_sentiment(tweet) == "POS":
+            sentiment_vote = "positive"
+        elif total_vote_sentiment(tweet) == "NEG":
+            sentiment_vote = "negative"
+        elif total_vote_sentiment(tweet) == "UND":
+            sentiment_vote = "neutral"
+        elif total_vote_sentiment(tweet) == "IRR":
+            sentiment_vote = "irrelevant"
+        else:
+            sentiment_vote = "not tagged"
+        if sentiment_vote != "not tagged":
+            if tweet.tweet_sentiment == sentiment_vote:
+                cont_correct += 1
+                correct.append(tweet)
             else:
-                sentiment_vote = "not tagged"
-            if sentiment_vote != "not tagged":
-                if tweet.tweet_sentiment == sentiment_vote:
-                    cont_correct += 1
-                    correct.append(tweet)
-                else:
-                    cont_incorrect += 1
-                    incorrect.append(tweet)
+                cont_incorrect += 1
+                incorrect.append(tweet)
     print "Correct: " + str(cont_correct)
     print "Incorrect: " + str(cont_incorrect)
 
@@ -104,6 +103,22 @@ def vote_sentiment(tweet):
     else:
         return "No sentiment"
 
+
+def total_vote_sentiment(tweet):
+    choices = tweet.sentiment_set.all()
+    max_votes = 0
+    vote_sentiment = None
+    for choice in choices:
+        if choice.votes > max_votes:
+            vote_sentiment = choice
+            max_votes = choice.votes
+    if vote_sentiment is not None:
+        if vote_sentiment.votes == tweet_votes(tweet):
+            return vote_sentiment.sentiment_text
+        else:
+            return "No decision"
+    else:
+        return "No sentiment"
 
 def results(request):
     context = []
