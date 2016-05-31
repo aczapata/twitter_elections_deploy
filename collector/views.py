@@ -21,8 +21,10 @@ def list_tweets(request):
     tweets_list = TwitterData.objects.all()
     cont_correct = 0
     cont_incorrect = 0
+    cont_ext_incorrect = 0
     correct = []
     incorrect = []
+    ext_incorrect = []
     total_votes = 0
     for tweet in tweets_list:
         tweet_total_votes = tweet_votes(tweet)
@@ -37,6 +39,7 @@ def list_tweets(request):
             sentiment_vote = "irrelevant"
         else:
             sentiment_vote = "not tagged"
+
         if sentiment_vote != "not tagged":
             if tweet.tweet_sentiment == sentiment_vote:
                 cont_correct += 1
@@ -44,10 +47,11 @@ def list_tweets(request):
             else:
                 cont_incorrect += 1
                 incorrect.append(tweet)
-    print "Correct: " + str(cont_correct)
-    print "Incorrect: " + str(cont_incorrect)
+                if (sentiment_vote == "positive" and tweet.tweet_sentiment == "negative") or (sentiment_vote == "negative" and tweet.tweet_sentiment == "positive"):
+                    cont_ext_incorrect += 1
+                    ext_incorrect.append(tweet)
 
-    context = {'tweets_list': tweets_list, 'correct': correct,'incorrect': incorrect, 'cont_correct': cont_correct, 'cont_incorrect': cont_incorrect }
+    context = {'tweets_list': tweets_list, 'correct': correct,'incorrect': incorrect, 'ext_incorrect': ext_incorrect, 'cont_correct': cont_correct, 'cont_incorrect': cont_incorrect, 'cont_ext_incorrect': cont_ext_incorrect }
     return render(request, 'collector/list.html', context)
 
 
